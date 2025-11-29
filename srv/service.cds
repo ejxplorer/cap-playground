@@ -1,0 +1,14 @@
+using db from '../db/schema';
+
+service Personervice {
+    entity Person as projection on db.PersonDetail {
+        ID,
+        name,
+        age,
+        address
+    };
+    entity PersonDetail as projection on db.PersonDetail;
+
+    // action fetchPerson();
+    // action addPerson(name: String, age: String, address: String, weight: Integer) returns Person;
+}
