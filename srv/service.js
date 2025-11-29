@@ -12,7 +12,12 @@ module.exports = cds.service.impl(async function() {
             if (!data.ID) {
                 data.ID = cds.utils.uuid();
             }
-
+            console.log(`Creating PersonDetail
+                with ID: ${data.ID}, 
+                name: ${data.name}, 
+                age: ${data.age}, 
+                address: ${data.address}`);
+            
             const result = await INSERT.into(PersonDetail).entries(data);
             
             // 생성된 데이터 조회해서 반환
