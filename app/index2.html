@@ -11,23 +11,15 @@
     <!-- Form -->
     <div>
         <h2>Person Form</h2>
-        <label>ID: <input type="text" id="id" placeholder="자동 생성"></label><br>
+        <label>ID: <input type="text" id="id" placeholder="자동 생성" readonly></label><br>
         <label>Name: <input type="text" id="name"></label><br>
         <label>Age: <input type="text" id="age"></label><br>
         <label>Address: <input type="text" id="address"></label><br>
         <label>Weight: <input type="number" id="weight"></label><br><br>
 
         <button onclick="createPerson()">Create (PersonDetail)</button>
-        <button onclick="readPerson()">Read (Person)</button>
+        <!-- <button onclick="readPerson()">Read (Person)</button> -->
         <button onclick="updatePerson()">Update (Person)</button>
-        <button onclick="deletePerson()">Delete (Person)</button>
-        <button onclick="clearForm()">Clear</button>
-    </div>
-
-    <!-- Response -->
-    <div>
-        <h2>Response</h2>
-        <pre id="response"></pre>
     </div>
 
     <!-- Table -->
@@ -48,7 +40,7 @@
     </div>
 
     <script>
-        const BASE_URL = 'http://localhost:4004/person';
+        const BASE_URL = '/odata/v4/personervice';
 
         // CREATE - PersonDetail
         async function createPerson() {
@@ -69,15 +61,14 @@
                 });
 
                 const result = await response.json();
-                document.getElementById('response').textContent = JSON.stringify(result, null, 2);
                 
                 if (response.ok) {
-                    alert('Person created successfully!');
+                    console.log('Person created successfully!');
                     readPerson();
                     clearForm();
                 }
             } catch (error) {
-                document.getElementById('response').textContent = 'Error: ' + error.message;
+                console.error('error, ', error.message);
             }
         }
 
@@ -85,9 +76,8 @@
         async function readPerson() {
             try {
                 const response = await fetch(`${BASE_URL}/Person`);
-                const result = await response.json();
                 
-                document.getElementById('response').textContent = JSON.stringify(result, null, 2);
+                const result = await response.json();
                 
                 // Update table
                 const tbody = document.getElementById('PersonBody');
@@ -102,14 +92,14 @@
                             <td>${person.age}</td>
                             <td>${person.address}</td>
                             <td>
-                                <button onclick='selectPerson(${JSON.stringify(person)})'>Select</button>
+                                <button onclick='selectPerson("${person.ID}")'>Select</button>
                                 <button onclick='deletePerson("${person.ID}")'>Delete</button>
                             </td>
                         `;
                     });
                 }
             } catch (error) {
-                document.getElementById('response').textContent = 'Error: ' + error.message;
+                console.error('error, ', error.message);
             }
         }
 
@@ -125,11 +115,12 @@
             const data = {
                 name: document.getElementById('name').value,
                 age: document.getElementById('age').value,
-                address: document.getElementById('address').value
+                address: document.getElementById('address').value,
+                weight: document.getElementById('weight').value
             };
 
             try {
-                const response = await fetch(`${BASE_URL}/Person(${id})`, {
+                const response = await fetch(`${BASE_URL}/PersonDetail(${id})`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
@@ -138,14 +129,14 @@
                 });
 
                 const result = await response.json();
-                document.getElementById('response').textContent = JSON.stringify(result, null, 2);
                 
                 if (response.ok) {
-                    alert('Person updated successfully!');
+                    console.log('Person updated successfully!');
                     readPerson();
+                    clearForm();
                 }
             } catch (error) {
-                document.getElementById('response').textContent = 'Error: ' + error.message;
+                console.error('error, ', error.messfage);
             }
         }
 
@@ -163,30 +154,38 @@
             }
 
             try {
-                const response = await fetch(`${BASE_URL}/Person(${personId})`, {
+                const response = await fetch(`${BASE_URL}/PersonDetail(${personId})`, {
                     method: 'DELETE'
                 });
 
                 if (response.ok) {
-                    document.getElementById('response').textContent = 'Person deleted successfully';
-                    alert('Person deleted successfully!');
+                    console.log('Person deleted successfully!');
                     readPerson();
                     clearForm();
                 } else {
                     const result = await response.json();
-                    document.getElementById('response').textContent = JSON.stringify(result, null, 2);
                 }
             } catch (error) {
-                document.getElementById('response').textContent = 'Error: ' + error.message;
+                console.error('error, ', error.message);
             }
         }
 
-        // Select person from table
-        function selectPerson(person) {
-            document.getElementById('id').value = person.ID;
-            document.getElementById('name').value = person.name;
-            document.getElementById('age').value = person.age;
-            document.getElementById('address').value = person.address;
+
+        async function selectPerson(id) {
+            try {
+                const response = await fetch(`${BASE_URL}/PersonDetail(${id})`);
+                const person = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('id').value = person.ID;
+                    document.getElementById('name').value = person.name;
+                    document.getElementById('age').value = person.age;
+                    document.getElementById('address').value = person.address;
+                    document.getElementById('weight').value = person.weight;
+                }
+            } catch (error) {
+                console.error('error, ', error.message);
+            }
         }
 
         // Clear form
