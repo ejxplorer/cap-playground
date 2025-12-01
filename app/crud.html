@@ -40,7 +40,7 @@
     </div>
 
     <script>
-        const BASE_URL = '/odata/v4/personervice';
+        const BASE_URL = '/odata/v4/person';
 
         // CREATE - PersonDetail
         async function createPerson() {
@@ -198,7 +198,7 @@
         }
 
         // Load data on page load
-        window.onload = function() {
+        window.onload = async function() {
             readPerson();
         };
     </script>

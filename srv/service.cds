@@ -1,6 +1,6 @@
 using db from '../db/schema';
 
-service Personervice {
+service PersonService {
     entity Person as projection on db.PersonDetail {
         ID,
         name,

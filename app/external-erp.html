@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch External S/4HANA Data</title>
+</head>
+<body>
+    <h3>Fetch External S/4HANA Data</h3>
+    
+    <button id="updateBtn" onclick="fetchData()">fetch external erp</button>
+
+    <script>
+        const BASE_URL = '/odata/v4/external-erp';
+
+        // 초기 데이터 로드
+        async function fetchData() {
+            try {
+                const response = await fetch(`${BASE_URL}/fetchData`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const result = await response.json();
+                console.log('Read data:', result);
+            } catch (error) {
+                console.error('Error reading data:', error);
+            }
+        }
+
+
+        async function testAPI() {
+            const username = 'DBCCLRL';
+            const password = 'Dlwotmd12!';
+            
+            // Basic Auth 인코딩
+            const credentials = btoa(`${username}:${password}`);
+            
+            try {
+                const response = await fetch('https://bnbsap.com/sap/opu/odata/sap/ZJSV001_CDS/ZJSV001', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Basic ${credentials}`,
+                        'User-Agent': 'Mozilla/5.0'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('Response:', data);
+                return data;
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        
+        // 페이지 로드 시 초기 데이터 로드
+        window.onload = function() {
+            testAPI();
+        };
+
+    </script>
+</body>
+</html>
