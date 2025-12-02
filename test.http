@@ -1,0 +1,45 @@
+### Person 목록 출력
+GET http://localhost:4004/odata/v4/person/PersonDetail
+
+
+### PersonDetail 생성
+POST http://localhost:4004/odata/v4/person/PersonDetail
+content-type: application/json
+
+{
+  "name": "BAS TEST",
+  "age": "11",
+  "address": "Munjeong",
+  "weight": "2115"
+}
+
+
+### PersonDetail 갱신
+PUT http://localhost:4004/odata/v4/person/PersonDetail
+content-type: application/json
+
+{
+  "ID": "17963379-6c3a-49ad-a41e-93d181bdb4bd",
+  "name": "갱신",
+  "age": "30",
+  "address": "Gangwon",
+  "weight": "45"
+}
+
+
+### PersonDetail 삭제
+DELETE http://localhost:4004/odata/v4/person/PersonDetail(ID='17963379-6c3a-49ad-a41e-93d181bdb4bd')
+
+
+### 외부 환율 정보 API
+GET http://localhost:4004/odata/v4/exchange-rate/ExchangeRate
+
+
+
+### 환율 데이터 업데이트
+POST http://localhost:4004/odata/v4/exchange-rate/fetchData
+content-type: application/json
+
+{}
+
+
