@@ -1,3 +1,0 @@
-service ExternalErpService {
-    action fetchData();
-}

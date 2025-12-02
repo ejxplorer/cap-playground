@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch External S/4HANA Data</title>
+</head>
+<body>
+    <h3>Fetch External S/4HANA Data</h3>
+    
+    <button id="updateBtn" onclick="fetchData()">fetch external erp</button>
+
+    <script>
+        const BASE_URL = '/odata/v4/external-s4hana';
+
+        // 초기 데이터 로드
+        async function fetchData() {
+            try {
+                // ✅ POST로 변경
+                const response = await fetch(`${BASE_URL}/callS4HANA`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log('Action 결과:', result);
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+    </script>
+</body>
+</html>

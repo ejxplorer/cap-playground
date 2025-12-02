@@ -6,6 +6,7 @@
     "@cap-js/hana": "^2",
     "@sap/cds": "^9",
     "@sap/hana-client": "^2.26.26",
+    "axios": "^1.13.2",
     "express": "^4"
   },
   "devDependencies": {
