@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Person App</title>
+    <style>
+        html, body, body > div, #container, #container-uiarea {
+            height: 100%;
+        }
+    </style>
+
+    <!-- UI5 부트스트랩 스크립트 -->
+    <script
+        id="sap-ui-bootstrap"
+        src="https://sapui5.hana.ondemand.com/1.143.0/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-resource-roots='{
+            "personnamespace.personapp": "./"
+        }'
+        data-sap-ui-on-init="module:sap/ui/core/ComponentSupport"
+        data-sap-ui-compat-version="edge"
+        data-sap-ui-async="true"
+        data-sap-ui-frame-options="trusted"
+    ></script>
+</head>
+<body class="sapUiBody sapUiSizeCompact" id="content">
+
+    <!-- Component.js를 자동으로 로드하고 인스턴스화 -->
+    <!-- data-name=\"personnamespace.personapp\"  ->  이 부분이 Component.js 네임스페이스 -->
+    <div
+        data-sap-ui-component
+        data-name="personnamespace.personapp"  
+        data-id="container"
+        data-settings='{"id" : "personnamespace.personapp"}'
+        data-handle-validation="true"
+    ></div>
+
+</body>
+</html>

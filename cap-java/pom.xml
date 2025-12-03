@@ -24,6 +24,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<!-- 서브 모듈 정의 (srv 폴더를 모듈로 포함) -->
 	<modules>
 		<module>srv</module>
 	</modules>

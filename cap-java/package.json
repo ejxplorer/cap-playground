@@ -7,5 +7,16 @@
   "devDependencies": {
     "@sap/cds-dk": "^9.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+  },
+  "cds": {
+    "requires": {
+      "[production]": {
+        "db": "hana"
+      },
+      "[development]": {
+        "db": "hana"
+      }
+    }
+  }
 }

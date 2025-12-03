@@ -11,10 +11,17 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
-    "@sap/hdi-deploy": "4.9.5"
+    "@sap/hdi-deploy": "4.9.5",
+    "cds-plugin-ui5": "^0.13.0"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "watch-project1": "cds watch --open project1/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-person": "cds watch --open person/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-fiori-project": "cds watch --open fioriproject/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-person-module": "cds watch --open personmodule/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-exchangereate-module": "cds watch --open exchangeratenamespace.exchangereatemodule/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-person-app": "cds watch --open personnamespace.personapp/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "cds": {
@@ -26,5 +33,18 @@
     "hana": {
       "deploy-format": "hdbtable"
     }
-  }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/project1",
+    "app/person",
+    "app/project1",
+    "app/fiori-project",
+    "app/person-module",
+    "app/exchangereate-module",
+    "app/person-module",
+    "app/person-app"
+  ]
 }
